@@ -8,10 +8,22 @@ const cheerio = require('cheerio');
  */
 const parse = data => {
   const $ = cheerio.load(data);
-  const name = $('.section-main h2.restaurant-details__heading--title').text();
-  const experience = $('#experience-section > ul > li:nth-child(2)').text();
+  const names=new Array();
+  const locations=new Array();
+  const kitchens_styles=new Array();
+  const image_urls=new Array();
+  $( 'body > main >section > div.row > div.col-lg-12 > div.row' ).each(function() {
+    let temp_name = $(this).find('div.col-md-6 > div.card__menu > div.card__menu-content > h5.card__menu-content--title > a').text();
+    let temp_location=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-footer > div.card__menu-footer--location').text();
+    let temp_kitchen_style=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-footer > div.card__menu-footer--price').text();
+    let temp_image_url=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-image > a > noscript').text();
+    names.push(temp_name);
+    locations.push(temp_location);
+    kitchens_styles.push(temp_kitchen_style);
+    image_urls.push(temp_image_url);
+  });
 
-  return {name, experience};
+  return {names,locations,kitchens_styles,image_urls};
 };
 
 /**

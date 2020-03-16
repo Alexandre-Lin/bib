@@ -7,7 +7,6 @@ import {
 import App from "../App";
 import Quick from "../Quick/Quick";
 import './Home.css';
-import Complete from "../Complete/Complete";
 
 export default function Home() {
     return (
@@ -19,17 +18,11 @@ export default function Home() {
                     <Route path="/Quick">
                         <Quick/>
                     </Route>
-                    <Route path="/Complete">
-                        <Complete/>
-                    </Route>
                     <Route path="/">
                         <App/>
                         <div class="Home-div">
                             <Link to="/Quick">
-                                <button class="Home-button">Quick start</button>
-                            </Link>
-                            <Link to="/Complete">
-                                <button class="Home-button">Complete start</button>
+                                <button>Let's start</button>
                             </Link>
                         </div>
                     </Route>

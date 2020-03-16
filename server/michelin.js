@@ -8,21 +8,32 @@ const cheerio = require('cheerio');
  */
 const parse = data => {
   const $ = cheerio.load(data);
-  const names=new Array();
-  const locations=new Array();
-  const kitchens_styles=new Array();
-  const image_urls=new Array();
+  let names;
+  let locations;
+  let kitchens_styles;
+  let image_urls;
   $( 'body > main >section > div.row > div.col-lg-12 > div.row' ).each(function() {
-    let temp_name = $(this).find('div.col-md-6 > div.card__menu > div.card__menu-content > h5.card__menu-content--title > a').text();
-    let temp_location=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-footer > div.card__menu-footer--location').text();
-    let temp_kitchen_style=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-footer > div.card__menu-footer--price').text();
-    let temp_image_url=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-image > a > noscript').text();
-    names.push(temp_name);
-    locations.push(temp_location);
-    kitchens_styles.push(temp_kitchen_style);
-    image_urls.push(temp_image_url);
+    let temp_name = $(this).find('div.col-md-6 > div.card__menu > div.card__menu-content > h5.card__menu-content--title > a').text().trim();
+    let temp_location=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-footer > div.card__menu-footer--location').text().trim();
+    let temp_kitchen_style=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-footer > div.card__menu-footer--price').text().trim();
+    let temp_image_url=$(this).find('div.col-md-6 > div.card__menu > div.card__menu-image > a > noscript').text().trim();
+    names=temp_name;
+    locations=temp_location;
+    kitchens_styles=temp_kitchen_style;
+    image_urls=temp_image_url;
   });
-
+  names = names.split('  ').join('').split('\n').filter(function (element) {
+    return element != '';
+  });
+  locations = locations.split('  ').join('').split('\n').filter(function (element) {
+    return element != '';
+  });
+  kitchens_styles = kitchens_styles.split('  ').join('').split('\n').filter(function (element) {
+    return element != '';
+  });
+  image_urls = image_urls.split('"').filter(function(element) {
+    return element.length > 15;
+  });
   return {names,locations,kitchens_styles,image_urls};
 };
 

@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import App from "../App";
 import Quick from "../Quick/Quick";
+import Better from"../Better/Better";
 import './Home.css';
 
 export default function Home() {
@@ -18,11 +19,17 @@ export default function Home() {
                     <Route path="/Quick">
                         <Quick/>
                     </Route>
+                    <Route path="/Better">
+                        <Better/>
+                    </Route>
                     <Route path="/">
                         <App/>
                         <div class="Home-div">
                             <Link to="/Quick">
-                                <button>Let's start</button>
+                                <button>First implementation</button>
+                            </Link>
+                            <Link to="/Better">
+                                <button>Better implementation(in progress)</button>
                             </Link>
                         </div>
                     </Route>

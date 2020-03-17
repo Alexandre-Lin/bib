@@ -62,7 +62,7 @@ app.get('/',function(req,res){
     const result=new Array();
     for (let i=0;i<index_maitre.length;i++)
     {
-        result.push({new_names:names[index_michelin[i]],new_locations :locations[index_maitre[i]],new_kitchens :kitchen[index_michelin[i]],new_images: image[index_michelin[i]],new_owners :owner[index_maitre[i]]});
+        result.push({id:i,new_names:names[index_michelin[i]],new_locations :locations[index_maitre[i]],new_kitchens :kitchen[index_michelin[i]],new_images: image[index_michelin[i]],new_owners :owner[index_maitre[i]]});
     }
     res.send(result);
 })

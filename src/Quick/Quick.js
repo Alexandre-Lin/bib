@@ -23,7 +23,6 @@ export default class Quick extends React.Component {
                 "Accept": "application/json"
             }
         }).then(res => res.json().then(json => {
-            console.log(this.state.data);
             this.setState({data: json});
 
         }));
@@ -31,7 +30,6 @@ export default class Quick extends React.Component {
 
 
     render() {
-        console.log(this.state.data);
         return (
             <TableContainer component={Paper}>
                 <h1>List of restaurants with Maître Restaurateur and Bib Gourmand distinctions</h1>
@@ -47,7 +45,7 @@ export default class Quick extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.data.map(row => (
-                            <TableRow key={row.owners}>
+                            <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.new_names}
                                 </TableCell>

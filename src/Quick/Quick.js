@@ -15,52 +15,69 @@ const useStyles = makeStyles({
     },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-    return {name, calories, fat, carbs, protein};
+async function loadingData() {
+
+    await fetch('http://localhost:8080/', {
+        method: "GET",
+        headers: {
+            "Accept": "application/json"
+        }
+    }).then(res => res.json().then(json => {
+        console.log(json);
+    }));
 }
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+export default class Quick extends React.Component {
+    constructor() {
+        super()
+        this.state = {data: []}
+        this.fetching();
+    }
 
-function loadData() {
+    fetching() {
+        fetch('http://localhost:8080/', {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        }).then(res => res.json().then(json => {
+            console.log(this.state.data);
+            this.setState({data: json});
 
-}
+        }));
+    }
 
-export default function Quick() {
-    const classes = useStyles();
-    loadData();
 
-    return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Owner</TableCell>
-                        <TableCell align="right">Location</TableCell>
-                        <TableCell align="right">Kitchen style</TableCell>
-                        <TableCell align="right">View</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map(row => (
-                        <TableRow key={row.name}>
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+    render() {
+        console.log(this.state.data);
+        return (
+            <TableContainer component={Paper}>
+                <Table  aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell align="right">Owner</TableCell>
+                            <TableCell align="right">Location</TableCell>
+                            <TableCell align="right">Kitchen style</TableCell>
+                            <TableCell align="right">View</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+                    </TableHead>
+                    <TableBody>
+                        {this.state.data.map(row => (
+                            <TableRow key={row.owners}>
+                                <TableCell component="th" scope="row">
+                                    {row.new_names}
+                                </TableCell>
+                                <TableCell align="right">{row.new_owners}</TableCell>
+                                <TableCell align="right">{row.new_locations}</TableCell>
+                                <TableCell align="right">{row.new_kitchens}</TableCell>
+                                <TableCell align="right">{row.new_images}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+    }
+
 }

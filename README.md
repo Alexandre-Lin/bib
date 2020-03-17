@@ -1,5 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+#Launch the server side
+
+To start the scraping (will take one hour about) :
+
+` node server/sandbox.js`
+
+To start the server (built with express) :
+
+`node server/server.js`
+
 ## Available Scripts
 
 In the project directory, you can run:

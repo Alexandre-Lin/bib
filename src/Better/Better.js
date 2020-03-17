@@ -18,6 +18,7 @@ import './Better.css'
 
 let rows = new Array();
 
+
 async function fetching() {
 
     await fetch('http://localhost:8080/', {
@@ -180,7 +181,7 @@ export default function EnhancedTable() {
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+    fetching().then(()=>{setSelected([0]);setSelected([])});
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -233,7 +234,7 @@ export default function EnhancedTable() {
     const isSelected = name => selected.indexOf(name) !== -1;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    fetching().then(()=>{setPage(1);setPage(0)});
+
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
